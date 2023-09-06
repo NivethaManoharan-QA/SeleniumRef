@@ -62,7 +62,7 @@ def Login():
     # ACTION -> INPUT
     if (action == 1):
         try:
-            fileName = "Trial Balance"
+            fileName = ""
 
             select = Select(driver.find_element("xpath", ""))
             select.select_by_visible_print()
@@ -200,10 +200,9 @@ logger = create_logger(app)
 @app.route('/', methods=['POST'])
 def hello_world():
     LogFileRemove()
-    global headerId
-    headerId = request.form['headerId']
-    threading.Thread(target=home_page, args=(headerId)).start()
-    return "headerId:" + headerId
+
+    threading.Thread(target=home_page,).start()
+    return "Success"
 
 
 # KILL THE PROCESS USING LOG COMMAND
@@ -240,7 +239,7 @@ def LogPath():
         return "Empty File"
 
 
-def home_page(headerId):
+def home_page():
     # PASS THE URL AT INDEX 0
     i = 0
     URL = ""
@@ -248,8 +247,8 @@ def home_page(headerId):
         TestLogin(URL)
     else:
         # PASS THE ACTION
-        Login(headerId)
+        Login()
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run()
